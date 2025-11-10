@@ -8,39 +8,30 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #fff9e6, #ffe6f0);
-      color: #444;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #fff8e7, #ffe6f0);
+      color: #333;
       text-align: center;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
       color: #e69bb8;
-      margin-top: 100px;
+      margin-top: 80px;
     }
 
     p {
       font-size: 1.2em;
-      margin: 15px auto;
-      width: 80%;
-    }
-
-    .heart {
-      font-size: 2.5em;
-      animation: beat 1s infinite;
-    }
-
-    @keyframes beat {
-      0%, 100% { transform: scale(1); color: #ff91a4; }
-      50% { transform: scale(1.2); color: #ffb6c1; }
+      margin: 10px auto;
+      width: 85%;
+      color: #444;
     }
 
     button {
       background-color: #ffd6da;
       border: none;
-      padding: 12px 24px;
+      padding: 12px 28px;
       font-size: 1em;
       border-radius: 30px;
       cursor: pointer;
@@ -50,7 +41,40 @@
 
     button:hover {
       background-color: #ffc2d1;
-      transform: scale(1.05);
+      transform: scale(1.08);
+    }
+
+    .heart {
+      font-size: 2.5em;
+      animation: beat 1s infinite;
+      margin-top: 10px;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); color: #ff91a4; }
+      50% { transform: scale(1.2); color: #ffb6c1; }
+    }
+
+    #details {
+      display: none;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #accept-section {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .yesno {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
     }
 
     footer {
@@ -60,33 +84,133 @@
       font-size: 0.9em;
       color: #777;
     }
+
+    /* Corazones animados */
+    .floating-heart {
+      position: fixed;
+      bottom: 0;
+      font-size: 24px;
+      animation: floatUp 4s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* Efecto de luces flotantes */
+    .light {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 182, 193, 0.6);
+      border-radius: 50%;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Música romántica -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/06/audio_b77cb4c33f.mp3" type="audio/mpeg">
+  </audio>
+
   <h1>💛 Picnic de Aniversario 💛</h1>
-  <p>Una tarde especial para celebrar nuestro amor y compartir juntos bajo el cielo 🌤️</p>
-  <p class="heart">💖</p>
+  <p>Una tarde especial para celebrar nuestro amor bajo el cielo y entre velitas 🕯️</p>
+  <div class="heart">💖</div>
 
   <button onclick="showDetails()">Ver detalles</button>
 
-  <div id="details" style="display:none;">
+  <div id="details">
     <h2>🌻 Lugar:</h2>
     <p>Museo la tertulia — Zona de picnic</p>
 
     <h2>📅 Fecha:</h2>
-    <p>Domingo, 7 de diciembre 4:00 p.m.</p>
+    <p>Domingo 7 de diciembre, 4:00 p.m.</p>
 
     <h2>🍓 Qué llevar:</h2>
-    <p>Ropa cómoda, sonrisa y muchas ganas de disfrutar 💕</p>
+    <p>Tu sonrisa, buena energía y ganas de disfrutar conmigo 💕</p>
+
+    <button onclick="askAccept()">Continuar 💌</button>
   </div>
 
-  <footer>Con cariño, de mí para ti 💛</footer>
+  <div id="accept-section">
+    <h2>💛 ¿Aceptas venir al picnic conmigo? 💛</h2>
+    <div class="yesno">
+      <button id="yesBtn" onclick="sayYes()">Sí 💕</button>
+      <button id="noBtn" onmouseover="moveNo()">No 😅</button>
+    </div>
+    <p id="answer" style="margin-top:20px; font-size:1.2em; color:#e69bb8;"></p>
+  </div>
+
+  <footer>Con amor, de mí para ti 💛</footer>
 
   <script>
+    // Mostrar detalles
     function showDetails() {
       document.getElementById("details").style.display = "block";
+    }
+
+    // Mostrar pregunta de "¿Aceptas?"
+    function askAccept() {
+      document.getElementById("details").style.display = "none";
+      document.getElementById("accept-section").style.display = "block";
+    }
+
+    // Si dice que sí
+    function sayYes() {
+      const answer = document.getElementById("answer");
+      answer.textContent = "💖 ¡Sabía que dirías que sí! Te amo 💖";
+
+      // Crear muchos corazones flotando
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+        document.body.appendChild(heart);
+
+        // eliminar corazones después de unos segundos
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+
+    // Mover botón "No"
+    function moveNo() {
+      const noBtn = document.getElementById("noBtn");
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Crear luces flotantes decorativas
+    for (let i = 0; i < 20; i++) {
+      const light = document.createElement('div');
+      light.classList.add('light');
+      light.style.left = Math.random() * 100 + 'vw';
+      light.style.animationDuration = 4 + Math.random() * 4 + 's';
+      light.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(light);
     }
   </script>
 </body>
 </html>
+
+
