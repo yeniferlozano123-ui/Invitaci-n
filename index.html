@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💛 Picnic de Aniversario 💛</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #fff9e6, #ffe6f0);
+      color: #444;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #e69bb8;
+      margin-top: 100px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 15px auto;
+      width: 80%;
+    }
+
+    .heart {
+      font-size: 2.5em;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); color: #ff91a4; }
+      50% { transform: scale(1.2); color: #ffb6c1; }
+    }
+
+    button {
+      background-color: #ffd6da;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffc2d1;
+      transform: scale(1.05);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 15px;
+      width: 100%;
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>💛 Picnic de Aniversario 💛</h1>
+  <p>Una tarde especial para celebrar nuestro amor y compartir juntos bajo el cielo 🌤️</p>
+  <p class="heart">💖</p>
+
+  <button onclick="showDetails()">Ver detalles</button>
+
+  <div id="details" style="display:none;">
+    <h2>🌻 Lugar:</h2>
+    <p>Museo la tertulia — Zona de picnic</p>
+
+    <h2>📅 Fecha:</h2>
+    <p>Domingo, 7 de diciembre 4:00 p.m.</p>
+
+    <h2>🍓 Qué llevar:</h2>
+    <p>Ropa cómoda, sonrisa y muchas ganas de disfrutar 💕</p>
+  </div>
+
+  <footer>Con cariño, de mí para ti 💛</footer>
+
+  <script>
+    function showDetails() {
+      document.getElementById("details").style.display = "block";
+    }
+  </script>
+</body>
+</html>
